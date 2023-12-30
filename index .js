@@ -8,6 +8,7 @@ let noElements = document.getElementById("noElements")
 let rowsCount = 0  
 
 
+
 // let pageBtn = document.querySelector("#Pagebtn")
 // pageBtn.addEventListener("click", nvm)
 
@@ -52,6 +53,7 @@ function addTodoWhenKeyPressed(event) {
 }
 
 function readFromLocalStorge () {
+
     let todos = localStorage.getItem("todos") // bhbhbh,jhjhj -> ['bhbhbh', 'jhjhj']  [{ text: 'icons', isComplete: 'no' }]
 
     let todosList;
@@ -59,7 +61,7 @@ function readFromLocalStorge () {
     if(!todos) {
         todosList = [];
     } else {
-        todosList = todos.split(',')
+        todosList = JSON.parse(todos)
     }
 
     return todosList;
@@ -67,24 +69,25 @@ function readFromLocalStorge () {
 
 }
 
-function removeFromArray (arr, textValue) {
-    let index = arr.indexOf(textValue)
-
-    if (index > -1) { 
-    arr.splice(index, 1);
-    }
-    
-}
-
-function deleteLocalStorage(inputValue) {
+function deleteLocalStorage(row) {
     // TODO: remove the element from localStorage
 
     let todos = readFromLocalStorge()
 
-    removeFromArray(todos, inputValue)
+    todos.splice(row, 1)
 
-    localStorage.setItem("todos", todos)
+    console.log(todos)
+    
+    localStorage.setItem("todos", JSON.stringify(todos))
 
+}
+
+function completeTodoLocalStorge(row) {
+    let todos = readFromLocalStorge()
+
+    todos[row].isComplete = 'yes'
+
+    localStorage.setItem("todos", JSON.stringify(todos))
 
 
 
@@ -94,71 +97,66 @@ function addToLocalStorge (inputValue) {
 
    let todos = readFromLocalStorge()
 
-    todos.push(inputValue)
+    todos.push({ text: inputValue, isComplete: 'no' })
 
-    localStorage.setItem("todos", todos)
+    localStorage.setItem("todos", JSON.stringify(todos))
 }
 
 function addRefreshTodo (todo) {
- 
-    if(todo != "") {
-
-        let rowBox = document.createElement("div")
-        let btnsRowBox = document.createElement("div")
-
-        rowsCount = rowsCount + 1
-
-        rowBox.id = `row${rowsCount}`
-        rowBox.className = "row"
-
-        btnsRowBox.id = "btnsRowBox"
-
-        
-        
-        
-        let h3 = document.createElement("h3")
-        let btnV = document.createElement("button")
-        let btnX = document.createElement("button")
-        
-        rowBox.append(h3)
-        rowBox.append(btnsRowBox)
-        
-    
-        h3.textContent = todo
-        btnV.textContent = "V"
-        btnX.textContent = "X"
     
 
-        btnsRowBox.append(btnV)
-        btnsRowBox.append(btnX)
-        
+    let rowBox = document.createElement("div")
+    let btnsRowBox = document.createElement("div")
 
-        
+    rowsCount = rowsCount + 1
 
+    rowBox.id = `row${rowsCount}`
+    rowBox.className = "row"
 
-        todosBox.append(rowBox)
+    btnsRowBox.id = "btnsRowBox"
+
     
-        input.value = ""
-
-
-        h3.setAttribute("class", "h3");
-        btnV.setAttribute("class", "btnV");
-        btnX.setAttribute("class", "btnX");
-
-      
-
-        btnX.id = rowsCount;
-        btnV.id = rowsCount;
-
-
-        btnX.addEventListener("click", onClickBtnX)
-        btnV.addEventListener("click", onClickBtnV)
-
-
-
-        
-
+    if(todo.isComplete == "yes") {
+        rowBox.style.backgroundColor = "limegreen"
     }
+    
+    let h3 = document.createElement("h3")
+    let btnV = document.createElement("button")
+    let btnX = document.createElement("button")
+    
+    rowBox.append(h3)
+    rowBox.append(btnsRowBox)
+    
+
+    h3.textContent = todo.text
+    btnV.textContent = "V"
+    btnX.textContent = "X"
+
+
+    btnsRowBox.append(btnV)
+    btnsRowBox.append(btnX)
+    
+
+    
+
+
+    todosBox.append(rowBox)
+
+    input.value = ""
+
+
+    h3.setAttribute("class", "h3");
+    btnV.setAttribute("class", "btnV");
+    btnX.setAttribute("class", "btnX");
+
+    
+
+    btnX.id = rowsCount;
+    btnV.id = rowsCount;
+
+
+    btnX.addEventListener("click", onClickBtnX)
+    btnV.addEventListener("click", onClickBtnV)
 
 
 }
@@ -258,14 +256,8 @@ function onClickBtnX(event) {
 
     let rowElement = document.getElementById(rowBoxID)
 
-    let h3 = rowElement.getElementsByTagName('h3')[0]
-
-    let textValue = h3.textContent
-
-    deleteLocalStorage(textValue)
-   
-
-    
+    deleteLocalStorage(row - 1)
+       
     rowElement.remove()
 
     let todosList = readFromLocalStorge()
@@ -287,17 +279,14 @@ function onClickBtnV(event) {
     let rowBoxID = `row${row}`
     
     let rowElement = document.getElementById(rowBoxID)
-    
-    // rowElement.style.backgroundColor = "limegreen"
 
-    if(rowElement.style.backgroundColor == "limegreen") {
-        rowElement.style.backgroundColor = "lightgray"
-     } else {
-        rowElement.style.backgroundColor = "limegreen"
-    }
-    //  else(rowElement.backgroundColor = "limegreen") {
-    //      rowElement.style.backgroundColor = "lightgray"
-    //  }
+    completeTodoLocalStorge(row - 1)
+    
+   
+    
+    rowElement.style.backgroundColor = "limegreen"
+    
+    
     
     
 }
