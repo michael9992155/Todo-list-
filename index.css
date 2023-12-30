@@ -1,0 +1,152 @@
+/* how to make the border of input with color even on click */
+/* when no TODOs  make h1 named " You got no TODOs right now :^)" */
+
+
+
+
+#todosBox {
+    overflow: auto;
+    height: 370px;
+    margin-top: 10px;
+}
+
+
+#main_div {
+    width: 800px;
+    background-color: aliceblue;
+    padding: 20px;
+    margin-top: 100px;
+    height: 500px;
+}
+
+
+
+body {
+    display: flex;
+    justify-content: center;
+    
+    margin: 0px;
+    padding:  0px;
+    background-image: linear-gradient(rgb(50, 105, 234), purple);
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top:  10px;
+    background-color: lightgray;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 3px;
+}
+
+
+
+
+
+#btnAdd {
+    background-color: rgb(0, 136, 255);
+    color: white;
+    font-weight: bolder;
+    /* padding: 1rem; */
+    cursor: pointer;
+    width: 58.4px;
+    height: 58.4px;
+    font-size: 40px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 0px;
+}
+
+
+#inputRow {
+    display: flex;
+    justify-content: center;
+}
+
+#input {
+   
+    /* height: 50px; */
+    width: 500px;
+    font-size: 32px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    /* border: 0px; */
+    /* border-bottom-color: rgb(0, 136, 255);
+    border-top-color: rgb(0, 136, 255);
+    border-left-color: rgb(0, 136, 255);
+    border-right-color: rgb(0, 136, 255); */
+    /* box-shadow: none; */
+    border: 3px solid rgb(0, 136, 255); 
+}
+
+
+#h1 {
+    text-align: center;
+    margin: 0px;
+    font-weight: bolder;
+}
+
+
+#P {
+    text-align: center;
+    font-size: 3cap;
+
+    margin: 0px;
+    margin-bottom: 15px;
+}
+
+.h3 {
+    font-size: 30px;
+    margin: 0px;
+}
+
+.btnV {
+    height:30px ;
+    background-color: rgb(55, 148, 55);
+    margin: 0px;
+    width: 50px;
+    height: 50px;
+    border: 0px;
+
+    
+}
+
+
+
+
+.btnX {
+    height:30px ;
+    background-color: red;
+    margin: 0px;
+    width: 50px;
+    height: 50px;
+    border: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+#noElements {
+    display: flex;
+    justify-content: center;
+    height: 75%;
+    align-items: center;
+
+    font-weight: bolder;
+    color: rgb(3, 57, 91);
+    
+}
+
+
+
+
