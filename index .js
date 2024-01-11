@@ -69,27 +69,33 @@ function readFromLocalStorge () {
 
 }
 
-function deleteLocalStorage(row) {
+function deleteLocalStorage(todoText) {
     // TODO: remove the element from localStorage
 
     let todos = readFromLocalStorge()
 
-    todos.splice(row, 1)
 
-    console.log(todos)
+    let index = todos.findIndex(elemt => elemt.text == todoText)
+    
+    if(index == -1) return
+
+    todos.splice(index, 1)
+
     
     localStorage.setItem("todos", JSON.stringify(todos))
 
 }
 
-function completeTodoLocalStorge(row) {
+function completeTodoLocalStorge(text) {
     let todos = readFromLocalStorge()
 
-    todos[row].isComplete = 'yes'
+    let index = todos.findIndex(eee => eee.text == text)
+
+    if(index == -1) return 
+
+    todos[index].isComplete = 'yes'
 
     localStorage.setItem("todos", JSON.stringify(todos))
-
-
 
 }
 
@@ -129,8 +135,8 @@ function addRefreshTodo (todo) {
     
 
     h3.textContent = todo.text
-    btnV.textContent = "V"
-    btnX.textContent = "X"
+    btnV.innerHTML = '<i class="fa-solid fa-check"></i>'
+    btnX.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
 
 
     btnsRowBox.append(btnV)
@@ -168,6 +174,10 @@ function addTodo () {
     
     if(inputValue.length > 20) {
         input.value = ""
+        return
+    }
+
+    if(inputValue == "") {
         return
     }
 
@@ -209,8 +219,8 @@ function addTodo () {
         
     
         h3.textContent = inputValue
-        btnV.textContent = "V"
-        btnX.textContent = "X"
+        btnV.innerHTML = '<i class="fa-solid fa-check"></i>'
+        btnX.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
     
 
         btnsRowBox.append(btnV)
@@ -252,11 +262,20 @@ function onClickBtnX(event) {
     
      let row =  buttonClicked.getAttribute('id');
 
+     console.log('row -> ', row);
+
      let rowBoxID = `row${row}`
+
+     console.log(rowBoxID);
 
     let rowElement = document.getElementById(rowBoxID)
 
-    deleteLocalStorage(row - 1)
+    console.log(rowElement);
+
+
+    let text = rowElement.childNodes[0].textContent
+
+    deleteLocalStorage(text)
        
     rowElement.remove()
 
@@ -271,7 +290,6 @@ function onClickBtnX(event) {
 
 function onClickBtnV(event) {
 
-    
     let buttonClicked = event.target;
     
     let row = buttonClicked.getAttribute('id')
@@ -280,9 +298,11 @@ function onClickBtnV(event) {
     
     let rowElement = document.getElementById(rowBoxID)
 
-    completeTodoLocalStorge(row - 1)
+    console.log(rowElement);
     
-   
+    let text = rowElement.childNodes[0].textContent 
+
+    completeTodoLocalStorge(text)
     
     rowElement.style.backgroundColor = "limegreen"
     
@@ -290,6 +310,12 @@ function onClickBtnV(event) {
     
     
 }
+
+
+// Solve the complete task like we did in the deleteFromLocalStorage and onClickBtnX
+// Publish our website, I will send you a video
+
+// Think on project idea
 
 
 

@@ -118,6 +118,8 @@ body {
     height: 50px;
     border: 0px;
 
+    cursor: pointer;
+
     
 }
 
@@ -133,6 +135,8 @@ body {
     border: 0px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+
+    cursor: pointer;
 }
 
 
